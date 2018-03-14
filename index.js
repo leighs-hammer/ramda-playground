@@ -13,7 +13,27 @@ const data = [
 	},
 	{
 		id: 2,
-		thresholdEnabled: false,
+		thresholdEnabled: true,
+		thresholds: [
+			{type: "gt", value: 1 },
+			{type: "lt", value: 2 },
+			{type: "gt", value: 3 },
+			{type: "lt", value: 4 },
+		]
+	},
+	{
+		id: 3,
+		thresholdEnabled: true,
+		thresholds: [
+			{type: "lt", value: 1 },
+			{type: "lt", value: 2 },
+			{type: "gt", value: 3 },
+			{type: "gt", value: 4 },
+		]
+	},
+	{
+		id: 4,
+		thresholdEnabled: true,
 		thresholds: [
 			{type: "gt", value: 1 },
 			{type: "lt", value: 2 },
@@ -34,11 +54,15 @@ const thresholds = x => {
 		})
 	})
 }
+const generateCards = x => {
+	x.cards.map(y => console.log(R.merge(y, {id: x.id})))
+}
 
 
 const Piper = R.pipe(
 	R.filter(enabled),
-	R.map(thresholds)
+	R.map(thresholds),
+	R.map(generateCards)
 )
 
 console.log(Piper(data))
